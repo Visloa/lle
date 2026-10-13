@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>Agile — The World's First AGI</title>
+<meta name="description" content="Agile is the world's first Artificial General Intelligence. It reasons like a human mind, learns without limits, and discovers new knowledge through the mathematics of matrices." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --bg:        #05060a;
+  --bg-soft:   #0a0c13;
+  --panel:     #0c0f17;
+  --panel-2:   #10131d;
+  --border:    rgba(255,255,255,.075);
+  --border-2:  rgba(255,255,255,.14);
+  --red:       #ff2b3d;
+  --red-soft:  #ff5566;
+  --red-dim:   rgba(255,43,61,.14);
+  --red-glow:  rgba(255,43,61,.35);
+  --text:      #e9ecf4;
+  --muted:     #8b93a7;
+  --muted-2:   #5f6678;
+  /* --green:     #2ee08a; */
+  --radius:    16px;
+  --maxw:      1180px;
+  --ease:      cubic-bezier(.22,1,.36,1);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+body.no-scroll{overflow:hidden}
+::selection{background:var(--red);color:#fff}
+
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:#05060a}
+::-webkit-scrollbar-thumb{background:#1c2130;border-radius:10px;border:2px solid #05060a}
+::-webkit-scrollbar-thumb:hover{background:#2a3145}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+.red{color:var(--red)}
+a{color:inherit;text-decoration:none}
+
+header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:rgba(5,6,10,.55);
+  backdrop-filter:blur(18px) saturate(160%);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid transparent;
+  transition:background .35s var(--ease), border-color .35s var(--ease);
+}
+header.scrolled{
+  background:rgba(5,6,10,.88);
+  border-bottom-color:var(--border);
+}
+.nav{
+  max-width:var(--maxw);margin:0 auto;padding:0 26px;
+  height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;
+}
+.logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:24px;font-weight:700;letter-spacing:-.02em;
+  display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none;
+}
+.logo .mark{
+  width:9px;height:9px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 12px var(--red-glow),0 0 28px var(--red-glow);
+  animation:pulseDot 2.4s ease-in-out infinite;
+}
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.45;transform:scale(.82)}
+}
+.logo .word{color:#fff}
+
+.nav-center{
+  display:flex;align-items:center;gap:8px;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-link{
+  font-size:14px;font-weight:500;color:var(--muted);
+  padding:9px 16px;border-radius:10px;cursor:pointer;
+  border:1px solid transparent;background:transparent;
+  font-family:inherit;
+  transition:color .25s var(--ease),background .25s var(--ease),border-color .25s var(--ease);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,.045);border-color:var(--border)}
+.nav-link.active{color:#fff;background:rgba(255,43,61,.1);border-color:rgba(255,43,61,.4)}
+.nav-link svg{width:14px;height:14px;opacity:.75}
+
+.nav-right{display:flex;align-items:center;gap:12px}
+
+.btn{
+  font-family:inherit;font-size:14px;font-weight:600;
+  border-radius:11px;cursor:pointer;border:1px solid transparent;
+  padding:10px 20px;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  transition:transform .22s var(--ease),box-shadow .3s var(--ease),background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
+  white-space:nowrap;
+}
+.btn:active{transform:scale(.97)}
+.btn-ghost{
+  background:rgba(255,255,255,.03);border-color:var(--border-2);color:var(--text);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.26)}
+.btn-red{
+  background:linear-gradient(180deg,#ff3a4c,#e01226);
+  color:#fff;box-shadow:0 6px 22px -8px var(--red-glow),inset 0 1px 0 rgba(255,255,255,.22);
+}
+.btn-red:hover{
+  box-shadow:0 10px 34px -8px rgba(255,43,61,.65),inset 0 1px 0 rgba(255,255,255,.28);
+  transform:translateY(-1px);
+}
+.btn-lg{padding:15px 32px;font-size:15px;border-radius:13px}
+.btn-block{width:100%}
+
+.burger{display:none;background:none;border:1px solid var(--border-2);border-radius:10px;padding:9px;cursor:pointer}
+.burger span{display:block;width:18px;height:1.8px;background:#fff;margin:4px 0;border-radius:2px;transition:.3s}
+
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:150px 0 90px;overflow:hidden;
+}
+#neural{position:absolute;inset:0;width:100%;height:100%;opacity:.55}
+.hero-glow{
+  position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;
+}
+.g1{width:720px;height:720px;background:rgba(255,43,61,.16);top:-280px;left:50%;transform:translateX(-50%);animation:floatGlow 12s ease-in-out infinite}
+.g2{width:520px;height:520px;background:rgba(60,90,255,.10);bottom:-240px;left:-140px;animation:floatGlow 15s ease-in-out infinite reverse}
+.g3{width:460px;height:460px;background:rgba(255,43,61,.08);bottom:-200px;right:-120px;animation:floatGlow 18s ease-in-out infinite}
+@keyframes floatGlow{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(0,-38px) scale(1.09)}
+}
+.hero-grid-lines{
+  position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 65% at 50% 42%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 65% at 50% 42%,#000 20%,transparent 78%);
+}
+.hero .wrap{position:relative;z-index:3;width:100%}
+
+.badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 16px 8px 11px;border-radius:100px;
+  background:rgba(255,43,61,.07);
+  border:1px solid rgba(255,43,61,.28);
+  font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  color:#ffa8b0;margin-bottom:30px;
+  box-shadow:0 0 40px -12px var(--red-glow);
+}
+.badge .dot{
+  width:7px;height:7px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 10px var(--red);animation:pulseDot 1.8s ease-in-out infinite;
+}
+
+h1{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.6rem,6.4vw,5.1rem);
+  line-height:1.03;letter-spacing:-.035em;font-weight:700;
+  max-width:15ch;
+}
+h1 .grad{
+  background:linear-gradient(100deg,#ff2b3d 0%,#ff6b78 45%,#ffb3ba 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+h1 .line{display:block;overflow:hidden}
+h1 .line > span{display:block;transform:translateY(105%);animation:riseUp 1.05s var(--ease) forwards}
+@keyframes riseUp{to{transform:translateY(0)}}
+
+.hero-sub{
+  margin-top:26px;max-width:640px;font-size:17px;color:var(--muted);line-height:1.75;
+}
+.hero-sub strong{color:#d7dcea;font-weight:500}
+
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+
+.hero-stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  margin-top:76px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--border);overflow:hidden;
+}
+.stat{
+  background:linear-gradient(180deg,rgba(255,255,255,.022),rgba(255,255,255,0));
+  padding:26px 24px;
+}
+.stat .num{
+  font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;
+  letter-spacing:-.03em;line-height:1.1;
+}
+.stat .num em{font-style:normal;color:var(--red)}
+.stat .lbl{font-size:12.5px;color:var(--muted-2);margin-top:6px;letter-spacing:.02em}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+
+.marquee{
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+  padding:20px 0;overflow:hidden;background:rgba(255,255,255,.012);
+  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+}
+.marquee-track{display:flex;gap:56px;width:max-content;animation:scrollX 34s linear infinite}
+@keyframes scrollX{to{transform:translateX(-50%)}}
+.marquee-item{
+  font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:500;
+  color:var(--muted-2);letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:14px;white-space:nowrap;
+}
+.marquee-item::after{content:'';width:5px;height:5px;border-radius:50%;background:var(--red);opacity:.55}
+
+
+section{position:relative}
+.sec{padding:110px 0}
+.sec-head{text-align:center;max-width:760px;margin:0 auto 60px}
+.sec-head.left{text-align:left;margin-left:0}
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--red);margin-bottom:16px;
+}
+h2{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.9rem,3.8vw,3rem);font-weight:700;
+  letter-spacing:-.03em;line-height:1.14;
+}
+.sec-head p{color:var(--muted);margin-top:18px;font-size:16px;line-height:1.75}
+
+/* Capability cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{
+  background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.006));
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 28px;position:relative;overflow:hidden;
+  transition:border-color .4s var(--ease),transform .4s var(--ease),box-shadow .4s var(--ease);
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,61,.65),transparent);
+  opacity:0;transition:opacity .45s var(--ease);
+}
+.card:hover{
+  border-color:rgba(255,43,61,.32);transform:translateY(-5px);
+  box-shadow:0 26px 60px -34px rgba(255,43,61,.5);
+}
+.card:hover::before{opacity:1}
+.card .ico{
+  width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+  background:var(--red-dim);border:1px solid rgba(255,43,61,.26);
+  margin-bottom:22px;color:var(--red);
+}
+.card .ico svg{width:20px;height:20px}
+.card h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;margin-bottom:10px;letter-spacing:-.01em}
+.card p{font-size:14.5px;color:var(--muted);line-height:1.7}
+
+
+.showcase{
+  padding:110px 0;position:relative;
+  border-top:1px solid var(--border);
+}
+.showcase.alt{background:linear-gradient(180deg,rgba(255,255,255,.012),transparent 40%)}
+
+.showcase-grid{
+  display:grid;grid-template-columns:1fr 1.15fr;
+  gap:70px;align-items:center;
+}
+.showcase-grid.flip{grid-template-columns:1.15fr 1fr}
+.showcase-grid.flip .showcase-copy{order:2}
+.showcase-grid.flip .showcase-visual{order:1}
+
+.showcase-copy h2{margin-bottom:0}
+.showcase-copy .lead{
+  color:var(--muted);font-size:16px;line-height:1.8;margin-top:22px;
+}
+.showcase-copy .lead strong{color:#d7dcea;font-weight:500}
+
+.points{list-style:none;margin-top:30px;display:flex;flex-direction:column;gap:16px}
+.points li{display:flex;gap:14px;align-items:flex-start;font-size:14.5px;color:#c3c9d8;line-height:1.6}
+.points li .bullet{
+  width:26px;height:26px;flex-shrink:0;border-radius:8px;
+  background:var(--red-dim);border:1px solid rgba(255,43,61,.3);
+  display:grid;place-items:center;color:var(--red);margin-top:1px;
+}
+.points li .bullet svg{width:13px;height:13px}
+.points li b{color:#fff;font-weight:600;display:block;margin-bottom:2px;font-size:14.5px}
+
+/* Image frame */
+.showcase-visual{position:relative}
+.img-frame{
+  position:relative;border-radius:20px;overflow:hidden;
+  border:1px solid var(--border-2);
+  background:#0a0c13;
+  box-shadow:0 50px 120px -50px rgba(0,0,0,.9),
+             0 0 0 1px rgba(255,255,255,.02) inset;
+  transition:transform .6s var(--ease),box-shadow .6s var(--ease);
+}
+.img-frame:hover{
+  transform:translateY(-6px) scale(1.008);
+  box-shadow:0 60px 130px -45px rgba(255,43,61,.45),
+             0 0 0 1px rgba(255,43,61,.15) inset;
+}
+/* Browser-bar for interface screenshots */
+.img-frame.browser::before{
+  content:'';display:block;height:38px;
+  background:linear-gradient(180deg,#12141d,#0c0e16);
+  border-bottom:1px solid var(--border);
+  background-image:
+    radial-gradient(circle at 20px 19px, #ff5f57 4.5px, transparent 5px),
+    radial-gradient(circle at 38px 19px, #febc2e 4.5px, transparent 5px),
+    radial-gradient(circle at 56px 19px, #28c840 4.5px, transparent 5px);
+  background-repeat:no-repeat;
+}
+.img-frame img{
+  display:block;width:100%;height:auto;
+  transition:transform .8s var(--ease);
+}
+.img-frame:hover img{transform:scale(1.02)}
+
+.img-caption{
+  margin-top:18px;font-size:13px;color:var(--muted-2);
+  display:flex;align-items:center;gap:10px;
+}
+.img-caption::before{
+  content:'';width:22px;height:1px;background:var(--red);opacity:.7;
+}
+
+/* Floating badge on image */
+.img-badge{
+  position:absolute;bottom:-16px;left:26px;z-index:4;
+  background:linear-gradient(180deg,#12161f,#0a0d14);
+  border:1px solid var(--border-2);border-radius:12px;
+  padding:12px 18px;display:flex;align-items:center;gap:11px;
+  font-size:12.5px;font-weight:600;color:#c3c9d8;letter-spacing:.02em;
+  box-shadow:0 20px 40px -20px rgba(0,0,0,.9);
+}
+.img-badge .dot{
+  width:7px;height:7px;border-radius:50%;background:var(--red);
+  box-shadow:0 0 10px var(--red);animation:pulseDot 2s ease-in-out infinite;
+}
+
+/* Full-width image */
+.full-img-wrap{
+  max-width:1080px;margin:0 auto;position:relative;
+}
+.full-img-wrap .img-frame{border-radius:22px}
+
+
+.quote-block{
+  max-width:900px;margin:70px auto 0;text-align:center;
+  padding:0 20px;
+}
+.quote-block .q{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(1.3rem,2.6vw,1.9rem);
+  font-weight:500;line-height:1.5;letter-spacing:-.02em;
+  color:#e9ecf4;
+}
+.quote-block .q em{
+  font-style:normal;color:var(--red);
+}
+.quote-block .src{
+  margin-top:22px;font-size:13px;color:var(--muted-2);
+  letter-spacing:.14em;text-transform:uppercase;
+}
+
+/* Timeline of research */
+.timeline{
+  margin-top:80px;display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;
+}
+.timeline::before{
+  content:'';position:absolute;top:20px;left:8%;right:8%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,43,61,.5) 15%,rgba(255,43,61,.5) 85%,transparent);
+}
+.tl-item{text-align:center;padding:0 14px;position:relative;z-index:2}
+.tl-dot{
+  width:42px;height:42px;margin:0 auto 20px;border-radius:50%;
+  background:#0a0d14;border:1px solid var(--border-2);
+  display:grid;place-items:center;color:var(--muted);
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;
+  transition:.4s var(--ease);
+}
+.tl-item:hover .tl-dot{
+  border-color:var(--red);color:var(--red);
+  box-shadow:0 0 30px -6px var(--red-glow);
+  transform:translateY(-3px);
+}
+.tl-item h4{font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;margin-bottom:7px}
+.tl-item p{font-size:13px;color:var(--muted-2);line-height:1.6}
+
+
+#pricing{
+  display:none;
+  padding:110px 0;
+  background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,43,61,.08),transparent 70%);
+  border-top:1px solid var(--border);
+}
+#pricing.active{display:block;animation:fadeUp .8s var(--ease)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px;margin:0 auto}
+.plan{
+  position:relative;border-radius:20px;padding:2px;
+  background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.03) 40%,rgba(255,43,61,.32));
+  transition:transform .45s var(--ease),box-shadow .45s var(--ease);
+}
+.plan:hover{transform:translateY(-6px);box-shadow:0 30px 80px -40px rgba(255,43,61,.6)}
+.plan.featured{
+  background:linear-gradient(160deg,rgba(255,43,61,.9),rgba(255,43,61,.16) 45%,rgba(255,43,61,.7));
+  box-shadow:0 30px 80px -40px rgba(255,43,61,.75);
+}
+.plan-inner{
+  background:linear-gradient(180deg,#0b0e16,#070910);
+  border-radius:18px;padding:38px 34px;height:100%;
+  display:flex;flex-direction:column;
+}
+.plan-tag{
+  position:absolute;top:-13px;right:26px;
+  background:linear-gradient(180deg,#ff3a4c,#d81124);
+  color:#fff;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  padding:6px 14px;border-radius:100px;
+  box-shadow:0 8px 24px -8px rgba(255,43,61,.9);
+}
+.plan-name{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;letter-spacing:-.01em}
+.plan-period{font-size:13px;color:var(--muted-2);margin-top:4px}
+.plan-price{display:flex;align-items:flex-end;gap:10px;margin:26px 0 8px}
+.plan-price .amt{
+  font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;
+  letter-spacing:-.04em;line-height:1;
+}
+.plan-price .cur{font-size:14px;font-weight:600;color:var(--muted);padding-bottom:8px;letter-spacing:.06em}
+.plan-note{font-size:12.5px;color:var(--muted-2);margin-bottom:28px}
+.plan-line{height:1px;background:var(--border);margin-bottom:26px}
+.features{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:34px;flex:1}
+.features li{display:flex;gap:11px;font-size:14.3px;color:#c3c9d8;align-items:flex-start;line-height:1.55}
+.features li svg{width:16px;height:16px;flex-shrink:0;margin-top:3px;color:var(--red)}
+.features li.dim{color:var(--muted-2)}
+.features li.dim svg{color:var(--muted-2)}
+
+.pricing-close{
+  text-align:center;margin-top:44px;
+}
+.pricing-close button{
+  background:none;border:1px solid var(--border-2);color:var(--muted);
+  padding:11px 24px;border-radius:11px;font-family:inherit;font-size:13.5px;font-weight:600;
+  cursor:pointer;transition:.25s var(--ease);
+}
+.pricing-close button:hover{color:#fff;border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
+
+
+#payment{
+  display:none;padding:100px 0 120px;
+  background:radial-gradient(ellipse 70% 55% at 50% 0%,rgba(255,43,61,.09),transparent 70%);
+  border-top:1px solid var(--border);
+}
+#payment.active{display:block;animation:fadeUp .8s var(--ease)}
+
+.pay-box{
+  max-width:640px;margin:0 auto;
+  background:linear-gradient(180deg,#0b0e16,#070910);
+  border:1px solid var(--border-2);border-radius:22px;
+  padding:46px 42px;
+  box-shadow:0 50px 120px -60px rgba(0,0,0,.95);
+}
+.pay-title{
+  font-family:'Space Grotesk',sans-serif;font-size:31px;font-weight:700;
+  letter-spacing:-.02em;text-align:center;
+  display:inline-block;width:100%;
+}
+.pay-title .x{color:var(--red)}
+.pay-underline{
+  height:2px;width:100%;margin:14px 0 22px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--red),transparent);
+}
+.pay-desc{text-align:center;font-size:14px;color:var(--muted);margin-bottom:34px;line-height:1.7}
+.pay-desc .warn{color:#ffb3ba;font-weight:500}
+
+.field{margin-bottom:20px}
+.field label{
+  display:block;font-size:12px;font-weight:600;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--muted-2);margin-bottom:9px;
+}
+.field input{
+  width:100%;padding:14px 16px;border-radius:12px;
+  background:rgba(255,255,255,.032);
+  border:1px solid var(--border-2);
+  color:var(--text);font-family:inherit;font-size:15px;
+  transition:border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease);
+}
+.field input::placeholder{color:#4d5466}
+.field input:focus{
+  outline:none;border-color:rgba(255,43,61,.6);
+  background:rgba(255,43,61,.045);
+  box-shadow:0 0 0 4px rgba(255,43,61,.1);
+}
+.field input[readonly]{color:#a9b0c2;cursor:default}
+.field input[readonly]:focus{border-color:var(--border-2);background:rgba(255,255,255,.032);box-shadow:none}
+
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+.addr-wrap{position:relative}
+.addr-wrap input{padding-right:96px;font-family:'Space Grotesk',monospace;font-size:13.5px;letter-spacing:.02em}
+.copy-btn{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  background:rgba(255,43,61,.12);border:1px solid rgba(255,43,61,.34);
+  color:#ff8b96;font-size:11.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:8px 13px;border-radius:8px;cursor:pointer;font-family:inherit;
+  transition:.25s var(--ease);
+}
+.copy-btn:hover{background:rgba(255,43,61,.24);color:#fff}
+
+.pay-hint{
+  font-size:13px;color:var(--muted-2);line-height:1.7;
+  background:rgba(255,255,255,.022);border:1px solid var(--border);
+  border-radius:12px;padding:15px 18px;margin:26px 0 30px;
+}
+.pay-hint b{color:#c8cedd;font-weight:600}
+
+.status{display:none;text-align:center;padding:14px 0 2px}
+.status.show{display:block;animation:fadeUp .5s var(--ease)}
+.spinner{
+  width:46px;height:46px;margin:0 auto 20px;
+  border-radius:50%;
+  border:2.5px solid rgba(255,255,255,.09);
+  border-top-color:var(--red);
+  animation:spin .85s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.status p{font-size:14.5px;color:var(--muted);line-height:1.7}
+.status .strong{color:#fff;font-weight:600;display:block;margin-bottom:6px;font-size:15.5px}
+.progress{
+  height:3px;width:100%;background:rgba(255,255,255,.07);
+  border-radius:3px;overflow:hidden;margin-top:22px;
+}
+.progress span{
+  display:block;height:100%;width:0;
+  background:linear-gradient(90deg,#ff2b3d,#ff7b86);
+  border-radius:3px;transition:width .4s linear;
+}
+.success-ico{
+  width:64px;height:64px;margin:0 auto 22px;border-radius:50%;
+  display:grid;place-items:center;
+  background:rgba(46,224,138,.1);border:1px solid rgba(46,224,138,.4);
+  color:var(--green);
+  animation:popIn .55s var(--ease);
+}
+@keyframes popIn{0%{transform:scale(.4);opacity:0}70%{transform:scale(1.09)}100%{transform:scale(1);opacity:1}}
+.success-ico svg{width:28px;height:28px}
+.err{color:#ff6b78;font-size:13px;margin-top:10px;display:none}
+.err.show{display:block}
+
+
+.overlay{
+  position:fixed;inset:0;z-index:1000;
+  background:rgba(3,4,8,.82);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:24px;
+}
+.overlay.open{display:flex;animation:fadeIn .3s var(--ease)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  width:100%;max-width:470px;
+  background:linear-gradient(180deg,#0c1019,#080a11);
+  border:1px solid var(--border-2);border-radius:22px;
+  padding:40px 38px;position:relative;
+  box-shadow:0 60px 140px -50px rgba(0,0,0,1);
+  animation:modalIn .45s var(--ease);
+}
+@keyframes modalIn{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.modal-close{
+  position:absolute;top:16px;right:16px;width:34px;height:34px;
+  border-radius:9px;background:rgba(255,255,255,.04);border:1px solid var(--border);
+  color:var(--muted);cursor:pointer;display:grid;place-items:center;
+  transition:.25s var(--ease);font-family:inherit;font-size:18px;line-height:1;
+}
+.modal-close:hover{background:rgba(255,43,61,.14);color:#fff;border-color:rgba(255,43,61,.4)}
+.modal h3{
+  font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;
+  letter-spacing:-.02em;margin-bottom:12px;
+}
+.modal .sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px}
+.modal .sub a{color:var(--red);font-weight:600;border-bottom:1px solid rgba(255,43,61,.45);transition:.2s}
+.modal .sub a:hover{color:#ff6b78;border-bottom-color:#ff6b78}
+
+
+footer{
+  border-top:1px solid var(--border);padding:52px 0 40px;
+  background:linear-gradient(180deg,transparent,rgba(255,43,61,.028));
+}
+.foot{
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.foot .copy{font-size:13px;color:var(--muted-2)}
+.foot-links{display:flex;gap:26px;flex-wrap:wrap}
+.foot-links a{font-size:13px;color:var(--muted);transition:.25s var(--ease);cursor:pointer}
+.foot-links a:hover{color:var(--red)}
+
+/* Toast */
+.toast{
+  position:fixed;bottom:32px;left:50%;transform:translate(-50%,140%);
+  background:#12161f;border:1px solid var(--border-2);
+  color:#fff;font-size:13.5px;font-weight:500;
+  padding:13px 24px;border-radius:12px;z-index:1200;
+  box-shadow:0 20px 50px -20px rgba(0,0,0,.95);
+  transition:transform .5s var(--ease);
+  display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translate(-50%,0)}
+.toast .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+
+
+@media(max-width:1040px){
+  .nav-center{display:none}
+  .burger{display:block}
+  .cards{grid-template-columns:1fr 1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .showcase-grid,.showcase-grid.flip{grid-template-columns:1fr;gap:44px}
+  .showcase-grid.flip .showcase-copy{order:1}
+  .showcase-grid.flip .showcase-visual{order:2}
+  .timeline{grid-template-columns:1fr 1fr;gap:34px 0}
+  .timeline::before{display:none}
+}
+@media(max-width:760px){
+  .sec,.showcase{padding:80px 0}
+  .hero{padding:120px 0 70px;min-height:auto}
+  .cards{grid-template-columns:1fr}
+  .price-grid{grid-template-columns:1fr}
+  .field-row{grid-template-columns:1fr}
+  .pay-box{padding:34px 24px}
+  .modal{padding:32px 24px}
+  .hero-stats{grid-template-columns:1fr 1fr;margin-top:52px}
+  .stat{padding:20px 18px}
+  .stat .num{font-size:26px}
+  h1{max-width:100%}
+  .foot{flex-direction:column;text-align:center}
+  .nav{height:64px}
+  .timeline{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+  .hero-stats{grid-template-columns:1fr}
+  .btn-lg{width:100%}
+}
+</style>
+</head>
+<body>
+
+
+<header id="header">
+  <nav class="nav">
+    <div class="logo" onclick="goHome()">
+      <span class="mark"></span>
+      <span class="word"><span class="red">Agi</span>le</span>
+    </div>
+
+    <div class="nav-center">
+      <!-- PDF DOWNLOAD LINK — place "Agile-How-To-Use.pdf" next to index.html -->
+      <a class="nav-link" id="howToUse" href="How_to_use_Agile.pdf" download="Agile-How-To-Use.pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        How to Use
+      </a>
+      <button class="nav-link" id="pricingLink">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+        Pricing
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <button class="btn btn-ghost" id="loginBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        Log In
+      </button>
+      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <canvas id="neural"></canvas>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+  <div class="hero-glow g3"></div>
+
+  <div class="wrap">
+    <div class="badge">
+      <span class="dot"></span>
+      World's First Artificial General Intelligence
+    </div>
+
+    <h1>
+      <span class="line"><span style="animation-delay:.1s">Three years.</span></span>
+      <span class="line"><span style="animation-delay:.24s">One machine that</span></span>
+      <span class="line"><span class="grad" style="animation-delay:.38s">truly thinks.</span></span>
+    </h1>
+
+    <p class="hero-sub">
+      After three years of relentless research and thousands of failed architectures,
+      <strong>Agile</strong> has become the first intelligence to reason the way a human mind does —
+      and then go further. Built on the raw mathematics of <strong>matrix theory</strong>,
+      Agile does not merely retrieve answers. It <strong>discovers things that were never taught to it.</strong>
+    </p>
+
+    <div class="hero-cta">
+      <button class="btn btn-red btn-lg" id="heroPricing">View Agile Plans</button>
+      <button class="btn btn-ghost btn-lg" id="heroLogin">I Have an Access Token</button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="num" data-count="3" data-suffix="+">0</div>
+        <div class="lbl">Years of Dedicated Research</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="94" data-suffix="%">0</div>
+        <div class="lbl">General Thinking Capacity</div>
+      </div>
+      <div class="stat">
+        <div class="num">∞</div>
+        <div class="lbl">Unlimited Token Throughput</div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="1" data-prefix="#">0</div>
+        <div class="lbl">AGI of Its Kind on Earth</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MARQUEE ============================ -->
+<div class="marquee">
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Human-Level Reasoning</span>
+    <span class="marquee-item">Matrix-Based Discovery</span>
+    <span class="marquee-item">Self-Directed Learning</span>
+    <span class="marquee-item">Unlimited Tokens</span>
+    <span class="marquee-item">Skill Adaptation</span>
+    <span class="marquee-item">Persistent Session Memory</span>
+    <span class="marquee-item">General Intelligence</span>
+  </div>
+</div>
+
+<!-- ============================ CAPABILITIES ============================ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The Breakthrough</div>
+      <h2>Not a model. A mind.</h2>
+      <p>
+        Every system before Agile was a mirror — it reflected back what it was trained on.
+        Agile is the first to look into the mirror and ask a question of its own.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.9 4.9l2.9 2.9M16.2 16.2l2.9 2.9M19.1 4.9l-2.9 2.9M7.8 16.2l-2.9 2.9"/>
+          </svg>
+        </div>
+        <h3>It Thinks Like a Human</h3>
+        <p>Agile doesn't pattern-match. It reasons — weighing context, intent and consequence the way a human mind does, then explains how it arrived there.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.09s">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </div>
+        <h3>Built on Matrix Mathematics</h3>
+        <p>At its core lies a living matrix space — a mathematical fabric where relationships between ideas are computed, not stored. That is where new knowledge is born.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.18s">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+          </svg>
+        </div>
+        <h3>It Discovers What It Was Never Taught</h3>
+        <p>Agile produces genuinely new conclusions — connections and solutions that do not exist in its training data. Discovery, not retrieval.</p>
+      </div>
+
+      <div class="card reveal">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <h3>Adaptive Skill Acquisition</h3>
+        <p>Feed it skills, tools or domains of knowledge. Agile absorbs them into its matrix and adapts instantly — no retraining, no downtime.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.09s">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <h3>Persistent Session Memory</h3>
+        <p>Every session is remembered. Agile carries context forward across conversations, so you never have to explain yourself twice.</p>
+      </div>
+
+      <div class="card reveal" style="transition-delay:.18s">
+        <div class="ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <h3>Unlimited Tokens</h3>
+        <p>No counters. No throttling. No truncated thoughts. Agile thinks in full paragraphs and full projects, never in fragments.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SHOWCASE 1 — INTERFACE ============================ -->
+<section class="showcase alt">
+  <div class="wrap">
+    <div class="showcase-grid">
+      <div class="showcase-copy reveal">
+        <div class="eyebrow">The Interface</div>
+        <h2>Where human thought meets machine reasoning.</h2>
+        <p class="lead">
+          The Agile console is built to feel like a conversation with a mind that is <strong>genuinely listening</strong>.
+          No noise, no clutter — just the thought, the response, and the reasoning laid out beside it.
+        </p>
+
+        <ul class="points">
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Reasoning visible in real time</b>Watch how Agile connects concepts before it answers.</span>
+          </li>
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Persistent memory thread</b>Every session carries forward — context never resets.</span>
+          </li>
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Built for depth, not speed-reading</b>Structured answers that respect the complexity of the question.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="showcase-visual reveal" style="transition-delay:.12s">
+        <div class="img-frame browser">
+          <!-- IMAGE 1 — Agile AGI interface -->
+          <img src="img1.png" alt="Agile AGI main interface" loading="lazy" />
+        </div>
+        <div class="img-badge"><span class="dot"></span> Live reasoning engine</div>
+        <div class="img-caption">The Agile console — main interface</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ SHOWCASE 2 — INTERFACE ============================ -->
+<section class="showcase">
+  <div class="wrap">
+    <div class="showcase-grid flip">
+      <div class="showcase-copy reveal">
+        <div class="eyebrow">The Depth</div>
+        <h2>Every answer carries its own chain of thought.</h2>
+        <p class="lead">
+          Agile doesn't just give you an answer — it shows you <strong>how it got there</strong>.
+          Each response is accompanied by the matrix of relationships it traversed,
+          so you can trust the conclusion, not just accept it.
+        </p>
+
+        <ul class="points">
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Transparent matrix reasoning</b>See the nodes Agile activated to reach its answer.</span>
+          </li>
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Multi-session continuity</b>Reference past sessions without ever re-explaining them.</span>
+          </li>
+          <li>
+            <span class="bullet">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span><b>Discovery, not lookup</b>Agile surfaces connections that were never explicitly trained.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="showcase-visual reveal" style="transition-delay:.12s">
+        <div class="img-frame browser">
+          <!-- IMAGE 2 — Agile AGI interface (secondary view) -->
+          <img src="img3_3.png" alt="Agile AGI detailed reasoning view" loading="lazy" />
+        </div>
+        <div class="img-badge"><span class="dot"></span> Matrix reasoning view</div>
+        <div class="img-caption">Deep reasoning and memory panel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ RESEARCH ============================ -->
+<section class="showcase alt">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">The Research</div>
+      <h2>Three years. One breakthrough.</h2>
+      <p>
+        Agile was not built overnight. It was forged through thousands of iterations,
+        failed architectures and a single insight — that intelligence is not stored, it is computed.
+      </p>
+    </div>
+
+    <div class="full-img-wrap reveal">
+      <div class="img-frame">
+        <!-- IMAGE 3 — Research -->
+        <img src="img2_2.png" alt="Agile AGI research and matrix architecture" loading="lazy" />
+      </div>
+      <div class="img-caption" style="justify-content:center;margin-top:22px">
+        You can select needed select for your project
+      </div>
+    </div>
+
+    <div class="quote-block reveal">
+      <p class="q">
+        "The moment we stopped trying to <em>store</em> intelligence
+        and started trying to <em>compute</em> it — everything changed."
+      </p>
+      <div class="src">— The Agile Research Team</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot">01</div>
+        <h4>Foundation</h4>
+        <p>Matrix-based reasoning theory established.</p>
+      </div>
+      <div class="tl-item reveal" style="transition-delay:.08s">
+        <div class="tl-dot">02</div>
+        <h4>Architecture</h4>
+        <p>First working neural-matrix prototype built.</p>
+      </div>
+      <div class="tl-item reveal" style="transition-delay:.16s">
+        <div class="tl-dot">03</div>
+        <h4>Reasoning</h4>
+        <p>Agile begins producing original, untrained conclusions.</p>
+      </div>
+      <div class="tl-item reveal" style="transition-delay:.24s">
+        <div class="tl-dot">04</div>
+        <h4>Release</h4>
+        <p>The world's first AGI becomes publicly accessible.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CLOSING CTA ============================ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:0">
+      <div class="eyebrow">Access</div>
+      <h2>You are not early. You are first.</h2>
+      <p>
+        Agile is not waiting for the future to arrive. It is the future —
+        and access is limited to those ready to use it.
+      </p>
+      <div class="hero-cta" style="justify-content:center;margin-top:36px">
+        <button class="btn btn-red btn-lg" id="ctaPricing">View Agile Plans</button>
+        <button class="btn btn-ghost btn-lg" id="ctaLogin">Log In with Token</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PRICING (HIDDEN UNTIL CLICKED) ============================ -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Access</div>
+      <h2>Agile Plans</h2>
+      <p>
+        Agile accepts payment in <strong style="color:#dbe0ec">crypto (USDT) only</strong>.
+        You will need an active crypto account to purchase access.
+      </p>
+    </div>
+
+    <div class="price-grid">
+
+      <!-- PLAN 1 -->
+      <div class="plan reveal">
+        <div class="plan-inner">
+          <div class="plan-name">Agile Starter</div>
+          <div class="plan-period">1 Month Access</div>
+
+          <div class="plan-price">
+            <span class="amt">55</span>
+            <span class="cur">USDT</span>
+          </div>
+          <div class="plan-note">One-time crypto payment · BSC Network</div>
+          <div class="plan-line"></div>
+
+          <ul class="features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 20 session chat memory</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Average response time: 10 mins</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Add up to 10 skills</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Low skill adaption on new chats</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> All data reference</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> General thinking up to 45%</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited tokens</li>
+            <li class="dim"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> General restrictions applied</li>
+          </ul>
+
+          <button class="btn btn-ghost btn-block btn-lg" onclick="selectPlan('Agile Starter — 1 Month', 55)">
+            Buy — 55 USDT
+          </button>
+        </div>
+      </div>
+
+      <!-- PLAN 2 -->
+      <div class="plan featured reveal" style="transition-delay:.1s">
+        <div class="plan-tag">Most Powerful</div>
+        <div class="plan-inner">
+          <div class="plan-name">Agile Unrestricted</div>
+          <div class="plan-period">3 Months Access</div>
+
+          <div class="plan-price">
+            <span class="amt">175</span>
+            <span class="cur">USDT</span>
+          </div>
+          <div class="plan-note">One-time crypto payment · BSC Network</div>
+          <div class="plan-line"></div>
+
+          <ul class="features">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> 45 session chat memory</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Average response time: 4 mins</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Add up to 30 skills</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> High skill adaption</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Authorised &amp; general data reference</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> General thinking up to 94%</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Unlimited tokens</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> No restrictions</li>
+          </ul>
+
+          <button class="btn btn-red btn-block btn-lg" onclick="selectPlan('Agile Unrestricted — 3 Months', 175)">
+            Buy — 175 USDT
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pricing-close">
+      <button onclick="closePricing()">← Back to Homepage</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ PAYMENT (HIDDEN UNTIL PLAN SELECTED) ============================ -->
+<section id="payment">
+  <div class="wrap">
+    <div class="pay-box">
+
+      <!-- FORM STATE -->
+      <div id="payForm">
+        <div class="pay-title">Agile <span class="x">X</span> Crypto</div>
+        <div class="pay-underline"></div>
+        <p class="pay-desc">
+          Agile accepts payment in <strong style="color:#dbe0ec">USDT (crypto) only</strong>.
+          <span class="warn">Please be extremely careful while making your payment</span> —
+          funds sent on the wrong network cannot be recovered.
+        </p>
+
+        <div class="field">
+          <label for="payMail">Your Email</label>
+          <input type="email" id="payMail" placeholder="you@example.com" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="field">
+          <label for="payAmount">Amount</label>
+          <input type="text" id="payAmount" readonly value="" placeholder="Select a plan above" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="payNetwork">Network</label>
+            <input type="text" id="payNetwork" readonly value="BSC (BNB Smart Chain)" />
+          </div>
+          <div class="field">
+            <label for="payCrypto">Crypto</label>
+            <input type="text" id="payCrypto" readonly value="USDT" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="payAddress">Receiving Address</label>
+          <div class="addr-wrap">
+            <input type="text" id="payAddress" readonly value="osiruajlkdjohroiwjelknlk39isjd" />
+            <button class="copy-btn" id="copyAddr">Copy</button>
+          </div>
+        </div>
+
+        <div class="pay-hint">
+          Send the exact amount of <b>USDT</b> on the <b>BSC (BNB Smart Chain)</b> network to the address above.
+          Once the transaction is confirmed on your side, click <b>I Have Paid</b> below.
+        </div>
+
+        <button class="btn btn-red btn-block btn-lg" id="paidBtn">I Have Paid</button>
+        <div class="err" id="payErr">Please enter a valid email address so we can send your access token.</div>
+      </div>
+
+      <!-- BUFFERING STATE -->
+      <div class="status" id="payLoading">
+        <div class="spinner"></div>
+        <p>
+          <span class="strong">Verifying your transaction…</span>
+          Please do not close this window.
+        </p>
+        <div class="progress"><span id="progBar"></span></div>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="status" id="paySuccess">
+        <div class="success-ico">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <p>
+          <span class="strong" style="color:#fff">We are processing your application.</span>
+          This usually takes about <b style="color:#dbe0ec">30 minutes</b>.<br />
+          Once it has succeeded, we will notify you with your <b style="color:#ff8b96">Agile Access Token</b>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:20px" onclick="goHome()">
+      <span class="mark"></span>
+      <span class="word"><span class="red">Agi</span>le</span>
+    </div>
+    <div class="foot-links">
+      <a href="How_to_use_Agile.pdf" download="Agile-How-To-Use.pdf">How to Use</a>
+      <a id="footPricing">Pricing</a>
+      <a id="footLogin">Log In</a>
+    </div>
+    <div class="copy">© <span id="yr"></span> Agile. The world's first AGI.</div>
+  </div>
+</footer>
+
+<!-- ============================ LOGIN MODAL ============================ -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="modal-close" id="closeLogin">&times;</button>
+    <h3>Log In to <span class="red">Agi</span>le</h3>
+    <p class="sub">
+      Enter your <b style="color:#dbe0ec">Agile Access Token</b> to continue.<br />
+      If you don't have an Agile Access Token,
+      <a href="Agile-How-To-Use.pdf" download="Agile-How-To-Use.pdf">see how to use</a> at the top of the homepage.
+    </p>
+
+    <div class="field">
+      <label for="tokenInput">Agile Access Token</label>
+      <input type="text" id="tokenInput" placeholder="AGI-XXXX-XXXX-XXXX" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="err" id="loginErr">That token format doesn't look right. Please check and try again.</div>
+
+    <button class="btn btn-red btn-block btn-lg" id="tokenSubmit" style="margin-top:8px">Verify &amp; Log In</button>
+  </div>
+</div>
+
+<!-- ============================ TOAST ============================ -->
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg">Copied</span></div>
+
+<script>
+/* ============================================================
+   HEADER SCROLL STATE
+   ============================================================ */
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 24);
+}, { passive: true });
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ============================================================
+   SCROLL REVEAL
+   ============================================================ */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.14, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ============================================================
+   STAT COUNTERS
+   ============================================================ */
+const counters = document.querySelectorAll('[data-count]');
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target;
+    const target = parseInt(el.dataset.count, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    let cur = 0;
+    const step = Math.max(1, Math.ceil(target / 42));
+    const tick = () => {
+      cur += step;
+      if (cur >= target) { el.textContent = prefix + target + suffix; return; }
+      el.textContent = prefix + cur + suffix;
+      requestAnimationFrame(tick);
+    };
+    tick();
+    cio.unobserve(el);
+  });
+}, { threshold: 0.5 });
+counters.forEach(c => cio.observe(c));
+
+/* ============================================================
+   MARQUEE — duplicate track for seamless loop
+   ============================================================ */
+const track = document.getElementById('marquee');
+track.innerHTML += track.innerHTML;
+
+/* ============================================================
+   NEURAL CANVAS BACKGROUND
+   ============================================================ */
+(function neuralNet() {
+  const cv = document.getElementById('neural');
+  const ctx = cv.getContext('2d');
+  let w, h, nodes = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    const r = cv.parentElement.getBoundingClientRect();
+    w = cv.width = r.width * dpr;
+    h = cv.height = r.height * dpr;
+    cv.style.width = r.width + 'px';
+    cv.style.height = r.height + 'px';
+    build();
+  }
+
+  function build() {
+    const count = Math.min(78, Math.floor((w * h) / (34000 * dpr)));
+    nodes = [];
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - .5) * .28 * dpr,
+        vy: (Math.random() - .5) * .28 * dpr,
+        r: (Math.random() * 1.5 + .7) * dpr
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const maxD = 138 * dpr;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > w) a.vx *= -1;
+      if (a.y < 0 || a.y > h) a.vy *= -1;
+
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+        if (d < maxD) {
+          const o = (1 - d / maxD) * 0.28;
+          ctx.strokeStyle = `rgba(255,43,61,${o * 0.75})`;
+          ctx.lineWidth = .7 * dpr;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,.42)';
+      ctx.fill();
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+let toastTimer;
+function toast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ============================================================
+   PRICING — SHOW / HIDE
+   ============================================================ */
+const pricingSection  = document.getElementById('pricing');
+const paymentSection  = document.getElementById('payment');
+const pricingNavLink  = document.getElementById('pricingLink');
+
+function showPricing() {
+  // Hide payment if it was open
+  paymentSection.classList.remove('active');
+
+  pricingSection.classList.add('active');
+  pricingNavLink.classList.add('active');
+
+  // Replay reveal animations
+  pricingSection.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('in');
+    setTimeout(() => el.classList.add('in'), 60);
+  });
+
+  setTimeout(() => {
+    pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 40);
+}
+
+function closePricing() {
+  pricingSection.classList.remove('active');
+  pricingNavLink.classList.remove('active');
+  paymentSection.classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goHome() {
+  pricingSection.classList.remove('active');
+  pricingNavLink.classList.remove('active');
+  paymentSection.classList.remove('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+pricingNavLink.addEventListener('click', showPricing);
+document.getElementById('footPricing').addEventListener('click', showPricing);
+document.getElementById('heroPricing').addEventListener('click', showPricing);
+document.getElementById('ctaPricing').addEventListener('click', showPricing);
+
+/* ============================================================
+   PLAN SELECTION → SHOW PAYMENT FORM
+   ============================================================ */
+function selectPlan(planName, amount) {
+  document.getElementById('payAmount').value = amount + ' USDT  ·  ' + planName;
+
+  // Reset payment form state
+  document.getElementById('payForm').style.display = '';
+  document.getElementById('payLoading').classList.remove('show');
+  document.getElementById('paySuccess').classList.remove('show');
+  document.getElementById('payErr').classList.remove('show');
+  document.getElementById('progBar').style.width = '0%';
+
+  // Show payment section
+  paymentSection.classList.add('active');
+  setTimeout(() => {
+    paymentSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+/* ============================================================
+   COPY ADDRESS
+   ============================================================ */
+document.getElementById('copyAddr').addEventListener('click', async () => {
+  const val = document.getElementById('payAddress').value;
+  try {
+    await navigator.clipboard.writeText(val);
+    toast('Wallet address copied');
+  } catch {
+    const inp = document.getElementById('payAddress');
+    inp.removeAttribute('readonly');
+    inp.select();
+    document.execCommand('copy');
+    inp.setAttribute('readonly', 'readonly');
+    toast('Wallet address copied');
+  }
+});
+
+/* ============================================================
+   PAYMENT FLOW
+   ============================================================ */
+const paidBtn  = document.getElementById('paidBtn');
+const payErr   = document.getElementById('payErr');
+const payForm  = document.getElementById('payForm');
+const payLoad  = document.getElementById('payLoading');
+const payOk    = document.getElementById('paySuccess');
+const progBar  = document.getElementById('progBar');
+
+paidBtn.addEventListener('click', () => {
+  const mail   = document.getElementById('payMail').value.trim();
+  const amount = document.getElementById('payAmount').value;
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) {
+    payErr.classList.add('show');
+    document.getElementById('payMail').focus();
+    return;
+  }
+  if (!amount) {
+    payErr.textContent = 'Please select a plan before proceeding.';
+    payErr.classList.add('show');
+    return;
+  }
+  payErr.classList.remove('show');
+
+  payForm.style.display = 'none';
+  payLoad.classList.add('show');
+
+  let p = 0;
+  const iv = setInterval(() => {
+    p += Math.random() * 9 + 4;
+    if (p >= 100) p = 100;
+    progBar.style.width = p + '%';
+    if (p === 100) clearInterval(iv);
+  }, 180);
+
+  setTimeout(() => {
+    clearInterval(iv);
+    progBar.style.width = '100%';
+    setTimeout(() => {
+      payLoad.classList.remove('show');
+      payOk.classList.add('show');
+      payOk.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 420);
+  }, 3600);
+});
+
+/* ============================================================
+   LOGIN MODAL
+   ============================================================ */
+const loginOverlay = document.getElementById('loginOverlay');
+const tokenInput   = document.getElementById('tokenInput');
+const loginErr     = document.getElementById('loginErr');
+
+function openLogin() {
+  loginOverlay.classList.add('open');
+  document.body.classList.add('no-scroll');
+  setTimeout(() => tokenInput.focus(), 220);
+}
+function closeLogin() {
+  loginOverlay.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+  loginErr.classList.remove('show');
+  tokenInput.value = '';
+}
+
+document.getElementById('loginBtn').addEventListener('click', openLogin);
+document.getElementById('heroLogin').addEventListener('click', openLogin);
+document.getElementById('ctaLogin').addEventListener('click', openLogin);
+document.getElementById('footLogin').addEventListener('click', openLogin);
+document.getElementById('closeLogin').addEventListener('click', closeLogin);
+loginOverlay.addEventListener('click', e => { if (e.target === loginOverlay) closeLogin(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && loginOverlay.classList.contains('open')) closeLogin(); });
+
+document.getElementById('tokenSubmit').addEventListener('click', () => {
+  const v = tokenInput.value.trim();
+  if (v.length < 8) {
+    loginErr.classList.add('show');
+    tokenInput.focus();
+    return;
+  }
+  loginErr.classList.remove('show');
+  const btn = document.getElementById('tokenSubmit');
+  const original = btn.textContent;
+  btn.textContent = 'Establishing secure channel…';
+  btn.style.pointerEvents = 'none';
+
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.style.pointerEvents = '';
+    closeLogin();
+    toast('Access denied — wrong token');
+  }, 1700);
+});
+tokenInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('tokenSubmit').click();
+});
+
+/* ============================================================
+   MOBILE BURGER → PRICING
+   ============================================================ */
+document.getElementById('burger').addEventListener('click', showPricing);
+
+/* ============================================================
+   HOW-TO-USE PDF — friendly toast on click
+   ============================================================ */
+document.querySelectorAll('a[href="Agile-How-To-Use.pdf"]').forEach(a => {
+  a.addEventListener('click', () => {
+    setTimeout(() => {
+      if (a.dataset.clicked) return;
+      a.dataset.clicked = '1';
+      toast('Downloading Agile — How to Use (PDF)');
+      setTimeout(() => { delete a.dataset.clicked; }, 1200);
+    }, 10);
+  });
+});
+</script>
+</body>
+</html>
